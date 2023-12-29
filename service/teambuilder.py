@@ -9,6 +9,7 @@ def createTeam(team: list, db: TinyDB):
     for member in team:
         response = db.get(query.Name == member)
         teammateValues = updateTeamValues(teammateValues, response['Teammates'])
+
     
     #find new teammate, and add their teammates scores into list until team is full
     while len(team) < 6:
@@ -31,7 +32,3 @@ def updateTeamValues(current: dict, addition: list):
         else:
             current[teammate[0]] = float(teammate[1])
     return current
-        
-db = TinyDB('data/11-2023/vgc11-2023.json')
-team = createTeam(['Heatran', 'Ogerpon-Wellspring'], db)
-print(team)
