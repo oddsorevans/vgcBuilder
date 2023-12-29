@@ -1,5 +1,5 @@
 #Load the db from text file to database
-from tinydb import TinyDB, Query
+from tinydb import TinyDB
 import os
 
 #Take data from raw usage stats found at https://www.smogon.com/stats/{month}/moveset and insert it into database
@@ -59,7 +59,9 @@ def loadData(db: TinyDB, source: str):
             name = False
         else:
             if line != '\n':
-                teammates.append(line.strip('\n').rsplit(' ', 1))
+                formatted = line.strip('\n').rsplit(' ', 1)
+                formatted[1] = formatted[1].rstrip('%')
+                teammates.append(formatted)
             else: 
                 pokemon['Teammates'] = teammates
                 db.insert(pokemon)
